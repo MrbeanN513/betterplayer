@@ -32,7 +32,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-
+import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.view.TextureRegistry;
@@ -42,7 +42,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Scanner;  
 import com.google.android.exoplayer2.PlaybackParameters;
 
 final class BetterPlayer {
@@ -60,13 +60,16 @@ final class BetterPlayer {
     private QueuingEventSink eventSink = new QueuingEventSink();
 
     private final EventChannel eventChannel;
+    private String preferredAudioLanguage = "mul";
+    private String preferredSubLanguage = "eng";
+
 
     private boolean isInitialized = false;
 
     private String key;
 
     private DefaultTrackSelector trackSelector;
-
+    private MappedTrackInfo mappedTrackInfo ;
     private long maxCacheSize;
     private long maxCacheFileSize;
 
@@ -78,8 +81,14 @@ final class BetterPlayer {
         this.eventChannel = eventChannel;
         this.textureEntry = textureEntry;
 
-        trackSelector = new DefaultTrackSelector();
-        exoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
+        trackSelector = new DefaultTrackSelector(context);
+        trackSelector.setParameters(
+            trackSelector.buildUponParameters()
+                    .setPreferredAudioLanguage(this.preferredAudioLanguage)
+                    .setPreferredTextLanguage(this.preferredSubLanguage)
+                   );
+       exoPlayer = new SimpleExoPlayer.Builder(context).setTrackSelector(trackSelector).build();
+        // exoPlayer =new ExoPlayerFactory.newSimpleInstance(context, trackSelector);
 
         setupVideoPlayer(eventChannel, textureEntry, result);
     }
@@ -292,6 +301,31 @@ final class BetterPlayer {
         }
         trackSelector.setParameters(parametersBuilder);
     }
+    
+    void setAudioTrackParameters(String audioLangId) {
+        String languageCode = audioLangId;
+
+        this.preferredAudioLanguage = languageCode;
+        DefaultTrackSelector.ParametersBuilder parametersBuilder = trackSelector.buildUponParameters();
+        if (audioLangId != null) {
+            parametersBuilder.setPreferredAudioLanguage(languageCode);
+        }
+        
+        trackSelector.setParameters(parametersBuilder);
+    }
+    void setSubTrackParameters(String subLangId) {
+        String languageCode = subLangId;
+
+        this.preferredSubLanguage = languageCode;
+        DefaultTrackSelector.ParametersBuilder parametersBuilder = trackSelector.buildUponParameters();
+        if (subLangId != null) {
+            parametersBuilder.setPreferredTextLanguage(languageCode);
+        }
+        
+        trackSelector.setParameters(parametersBuilder);
+    }
+    
+    
 
     void seekTo(int location) {
         exoPlayer.seekTo(location);

@@ -483,7 +483,10 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
     _player.currentItem.preferredPeakBitRate = bitrate;
     _player.currentItem.preferredMaximumResolution = CGSizeMake(width, height);
   }
-
+// - (void)setAudioTrackParameters:(String) audioLangId {
+    
+//     _player.currentItem.preferredMaximumResolution = CGSizeMake(width, height);
+//   }
 
 // This workaround if you will change dataSource. Flutter engine caches CVPixelBufferRef and if you
 // return NULL from method copyPixelBuffer Flutter will use cached CVPixelBufferRef. If you will
@@ -730,7 +733,12 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
         
         [player setTrackParameters:width: height : bitrate];
       result(nil);
-    }else {
+    }
+    else if ([@"setAudioTrackParameters" isEqualToString:call.method]) {
+        String audioLangId = argsMap[@"audioLangId"];
+        [player setAudioTrackParameters:audioLangId];
+      result(nil);
+      }else {
       result(FlutterMethodNotImplemented);
     }
   }

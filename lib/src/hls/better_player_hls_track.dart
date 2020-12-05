@@ -11,3 +11,10 @@ class BetterPlayerHlsTrack {
 
   BetterPlayerHlsTrack(this.width, this.height, this.bitrate);
 }
+
+class BetterPlayerAudioTrack {
+  ///Width in px of the track
+  final String audioLangId;
+
+  BetterPlayerAudioTrack(this.audioLangId);
+}

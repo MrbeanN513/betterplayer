@@ -143,6 +143,27 @@ class MethodChannelVideoPlayer extends VideoPlayerPlatform {
     );
   }
 
+Future<void> setAudioTrackParameters(
+      int textureId, String audioLangId) {
+    return _channel.invokeMethod<void>(
+      'setAudioTrackParameters',
+      <String, dynamic>{
+        'textureId': textureId,
+        'audioLangId':audioLangId
+      },
+    );
+  }
+  Future<void> setSubTrackParameters(
+      int textureId, String subLangId) {
+    return _channel.invokeMethod<void>(
+      'setAudioTrackParameters',
+      <String, dynamic>{
+        'textureId': textureId,
+        'audioLangId':subLangId
+      },
+    );
+  }
+  
   @override
   Future<void> seekTo(int textureId, Duration position) {
     return _channel.invokeMethod<void>(

@@ -28,6 +28,7 @@ class BetterPlayerDataSource {
   ///List of strings that represents tracks names.
   ///If empty, then better player will choose name based on track parameters
   final List<String> hlsTrackNames;
+  final List<String> audioTrackNames;
 
   ///Optional, alternative resolutions for non-hls video. Used to setup
   ///different qualities for video.
@@ -37,6 +38,8 @@ class BetterPlayerDataSource {
 
   ///Optional cache configuration, used only for network data sources
   final BetterPlayerCacheConfiguration cacheConfiguration;
+  final bool useaudioTracks;
+  final Map<String, String> defaultaudios;
 
   ///List of bytes, used only in memory player
   final List<int> bytes;
@@ -50,8 +53,11 @@ class BetterPlayerDataSource {
     this.headers,
     this.useHlsSubtitles = true,
     this.useHlsTracks = true,
+    this.useaudioTracks = true,
     this.hlsTrackNames,
+    this.audioTrackNames,
     this.resolutions,
+    this.defaultaudios,
     this.cacheConfiguration,
   }) : assert(
             ((type == BetterPlayerDataSourceType.NETWORK ||
@@ -70,7 +76,9 @@ class BetterPlayerDataSource {
     Map<String, String> headers,
     bool useHlsSubtitles,
     bool useHlsTracks,
+    bool useaudioTracks,
     Map<String, String> qualities,
+    Map<String, String> defaultaudiotrack,
     BetterPlayerCacheConfiguration cacheConfiguration,
   }) {
     return BetterPlayerDataSource(
@@ -81,6 +89,8 @@ class BetterPlayerDataSource {
       headers: headers,
       useHlsSubtitles: useHlsSubtitles,
       useHlsTracks: useHlsTracks,
+      useaudioTracks: useaudioTracks,
+      defaultaudios: defaultaudiotrack,
       resolutions: qualities,
       cacheConfiguration: cacheConfiguration,
     );
@@ -93,7 +103,9 @@ class BetterPlayerDataSource {
     List<BetterPlayerSubtitlesSource> subtitles,
     bool useHlsSubtitles,
     bool useHlsTracks,
+    Map<String, String> defaultaudiotrack,
     Map<String, String> qualities,
+    bool useaudioTracks,
     BetterPlayerCacheConfiguration cacheConfiguration,
   }) {
     return BetterPlayerDataSource(
@@ -102,6 +114,8 @@ class BetterPlayerDataSource {
       subtitles: subtitles,
       useHlsSubtitles: useHlsSubtitles,
       useHlsTracks: useHlsTracks,
+      useaudioTracks: useaudioTracks,
+      defaultaudios: defaultaudiotrack,
       resolutions: qualities,
     );
   }
@@ -112,6 +126,8 @@ class BetterPlayerDataSource {
       {List<BetterPlayerSubtitlesSource> subtitles,
       bool useHlsSubtitles,
       bool useHlsTracks,
+      bool useaudioTracks,
+      Map<String, String> defaultaudiotrack,
       Map<String, String> qualities,
       BetterPlayerCacheConfiguration cacheConfiguration}) {
     return BetterPlayerDataSource(
@@ -121,6 +137,8 @@ class BetterPlayerDataSource {
       subtitles: subtitles,
       useHlsSubtitles: useHlsSubtitles,
       useHlsTracks: useHlsTracks,
+      useaudioTracks: useaudioTracks,
+      defaultaudios: defaultaudiotrack,
       resolutions: qualities,
     );
   }
@@ -134,6 +152,8 @@ class BetterPlayerDataSource {
     Map<String, String> headers,
     bool useHlsSubtitles,
     bool useHlsTracks,
+    bool useaudioTracks,
+    Map<String, String> defaultaudiotrack,
     Map<String, String> qualities,
     BetterPlayerCacheConfiguration cacheConfiguration,
   }) {
@@ -146,6 +166,8 @@ class BetterPlayerDataSource {
       headers: headers ?? this.headers,
       useHlsSubtitles: useHlsSubtitles ?? this.useHlsSubtitles,
       useHlsTracks: useHlsTracks ?? this.useHlsTracks,
+      useaudioTracks: useaudioTracks ?? this.useaudioTracks,
+      defaultaudios: defaultaudiotrack ?? this.defaultaudios,
       resolutions: qualities ?? this.resolutions,
       cacheConfiguration: cacheConfiguration ?? this.cacheConfiguration,
     );

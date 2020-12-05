@@ -136,7 +136,7 @@ class _ProgressBarPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final height = 2.0;
+    final height = 5.0;
 
     canvas.drawRRect(
       RRect.fromRectAndRadius(
@@ -144,7 +144,7 @@ class _ProgressBarPainter extends CustomPainter {
           Offset(0.0, size.height / 2),
           Offset(size.width, size.height / 2 + height),
         ),
-        Radius.circular(4.0),
+        Radius.circular(0.0),
       ),
       colors.backgroundPaint,
     );
@@ -181,7 +181,7 @@ class _ProgressBarPainter extends CustomPainter {
     );
     canvas.drawCircle(
       Offset(playedPart, size.height / 2 + height / 2),
-      height * 3,
+      height * 0,
       colors.handlePaint,
     );
   }

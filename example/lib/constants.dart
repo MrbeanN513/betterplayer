@@ -21,8 +21,9 @@ class Constants {
   };
   static const String phantomVideoUrl =
       "http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8";
-  static const String elephantDreamVideoUrl =
-      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
+  static const String elephantDreamVideoUrl = "";
+  // "https://www.dl.dropboxusercontent.com/s/kyn04xlsn9uvt8h/The.Kissing.Booth.2018.720p.NF.WEB-DL.Hindi-English.x264-KatmovieHD.mkv";
+  // "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
   static const String forBiggerJoyridesVideoUrl =
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4";
   static const String verticalVideoUrl =

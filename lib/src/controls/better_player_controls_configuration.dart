@@ -98,6 +98,7 @@ class BetterPlayerControlsConfiguration {
 
   ///Flag used to show/hide qualities
   final bool enableQualities;
+  final bool enableAudioTracks;
 
   ///Custom items of overflow menu
   final List<BetterPlayerOverflowMenuItem> overflowMenuCustomItems;
@@ -113,6 +114,7 @@ class BetterPlayerControlsConfiguration {
 
   ///Icon of the qualities menu item from overflow menu
   final IconData qualitiesIcon;
+  final IconData audioLangIcon;
 
   ///Color of overflow menu icons
   final Color overflowMenuIconsColor;
@@ -130,8 +132,8 @@ class BetterPlayerControlsConfiguration {
       this.unMuteIcon = Icons.volume_mute,
       this.fullscreenEnableIcon = Icons.fullscreen,
       this.fullscreenDisableIcon = Icons.fullscreen_exit,
-      this.skipBackIcon = Icons.fast_rewind,
-      this.skipForwardIcon = Icons.fast_forward,
+      this.skipBackIcon = Icons.replay_30_sharp,
+      this.skipForwardIcon = Icons.forward_30_sharp,
       this.enableFullscreen = true,
       this.enableMute = true,
       this.enableProgressText = false,
@@ -146,16 +148,18 @@ class BetterPlayerControlsConfiguration {
       this.customControls,
       this.showControls = true,
       this.showControlsOnInitialize = true,
-      this.controlBarHeight = 48.0,
+      this.controlBarHeight = 120.0,
       this.liveTextColor = Colors.red,
       this.enableOverflowMenu = true,
       this.enablePlaybackSpeed = true,
       this.enableSubtitles = true,
       this.enableQualities = true,
+      this.enableAudioTracks = true,
       this.overflowMenuCustomItems = const [],
       this.overflowMenuIcon = Icons.more_vert,
       this.playbackSpeedIcon = Icons.shutter_speed,
       this.qualitiesIcon = Icons.hd,
+      this.audioLangIcon = Icons.audiotrack,
       this.subtitlesIcon = Icons.text_fields,
       this.overflowMenuIconsColor = Colors.black,
       this.skipsTimeInMilliseconds = 15000});

@@ -89,6 +89,13 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
                 Navigator.of(context).pop();
                 _showQualitiesSelectionWidget();
               }),
+              //   if (betterPlayerControlsConfiguration.enableAudioTracks)
+              // _buildMoreOptionsListRow(
+              //     betterPlayerControlsConfiguration.audioLangIcon,
+              //     translations.overflowMenuAudioTrack, () {
+              //   Navigator.of(context).pop();
+              //   _showAudioSelectionWidget();
+              // }),
             if (betterPlayerControlsConfiguration
                 .overflowMenuCustomItems?.isNotEmpty)
               ...betterPlayerControlsConfiguration.overflowMenuCustomItems.map(
@@ -309,6 +316,77 @@ abstract class BetterPlayerControlsState<T extends StatefulWidget>
       },
     );
   }
+
+  // void _showAudioSelectionWidget() {
+  //   List<String> audiotrackNames =
+  //       betterPlayerController.betterPlayerDataSource.audioTrackNames ?? List();
+  //   List<BetterPlayerAudioTrack> tracks =
+  //       betterPlayerController.betterPlayerAudioTracks;
+  //   var children = List<Widget>();
+  //   for (var index = 0; index < tracks.length; index++) {
+  //     var preferredName = audiotrackNames.length > index ? audiotrackNames[index] : null;
+  //     children.add( _buildAudioTrackRow(tracks[index], preferredName));
+  //   }
+  //   // var resolutions = betterPlayerController.betterPlayerDataSource.resolutions;
+  //   // resolutions?.forEach((key, value) {
+  //   //   children.add(_buildResolutionSelectionRow(key, value));
+  //   // });
+
+  //   if (children.isEmpty) {
+  //     children.add( _buildAudioTrackRow(BetterPlayerAudioTrack("hin"),
+  //         betterPlayerController.translations.generalDefault));
+  //   }
+
+  //   showModalBottomSheet(
+  //     context: context,
+  //     builder: (context) {
+  //       return SafeArea(
+  //         top: false,
+  //         bottom: true,
+  //         child: SingleChildScrollView(
+  //           child: Column(
+  //             children: children,
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  // Widget _buildAudioTrackRow(
+  //     BetterPlayerAudioTrack audioTrack, String preferredName) {
+  //   assert(audioTrack != null, "Track can't be null");
+
+  //   String trackName = preferredName ?? audioTrack.audioLangId.toString();
+  //   // "x" +
+  //   // track.height.toString() +
+  //   // " " +
+  //   // BetterPlayerUtils.formatBitrate(track.bitrate);
+
+  //   var selectedTrack = betterPlayerController.betterPlayerAudioTrack;
+  //   bool isSelected = selectedTrack != null && selectedTrack == audioTrack;
+
+  //   return BetterPlayerMaterialClickableWidget(
+  //     child: Padding(
+  //       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+  //       child: Row(
+  //         children: [
+  //           const SizedBox(width: 16),
+  //           Text(
+  //             "$trackName",
+  //             style: TextStyle(
+  //               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //     onTap: () {
+  //       Navigator.of(context).pop();
+  //       betterPlayerController.setAudioTrack(audioTrack);
+  //     },
+  //   );
+  // }
 
   Widget _buildTrackRow(BetterPlayerHlsTrack track, String preferredName) {
     assert(track != null, "Track can't be null");

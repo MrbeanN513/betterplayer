@@ -47,7 +47,8 @@ public class BetterPlayerPlugin implements MethodCallHandler, FlutterPlugin {
     private static final String WIDTH_PARAMETER = "width";
     private static final String HEIGHT_PARAMETER = "height";
     private static final String BITRATE_PARAMETER = "bitrate";
-
+    private static final String AUDIOLANGID_PARAMETER = "audioLangId";
+    private static final String SUBLANGID_PARAMETER = "subLangId";
     private static final String INIT_METHOD = "init";
     private static final String CREATE_METHOD = "create";
     private static final String SET_DATA_SOURCE_METHOD = "setDataSource";
@@ -59,6 +60,8 @@ public class BetterPlayerPlugin implements MethodCallHandler, FlutterPlugin {
     private static final String POSITION_METHOD = "position";
     private static final String SET_SPEED_METHOD = "setSpeed";
     private static final String SET_TRACK_PARAMETERS_METHOD = "setTrackParameters";
+    private static final String SET_SUB_TRACK_PARAMETERS_METHOD = "setSubTrackParameters";
+    private static final String SET_AUDIO_TRACK_PARAMETERS_METHOD = "setAudioTrackParameters";
     private static final String DISPOSE_METHOD = "dispose";
 
     private final LongSparseArray<BetterPlayer> videoPlayers = new LongSparseArray<>();
@@ -211,7 +214,18 @@ public class BetterPlayerPlugin implements MethodCallHandler, FlutterPlugin {
                         (Integer) call.argument(BITRATE_PARAMETER));
                 result.success(null);
                 break;
-            case DISPOSE_METHOD:
+            case SET_AUDIO_TRACK_PARAMETERS_METHOD:
+                player.setAudioTrackParameters(
+                        (String) call.argument(AUDIOLANGID_PARAMETER));
+                result.success(null);
+                break;
+             case SET_SUB_TRACK_PARAMETERS_METHOD:
+                player.setSubTrackParameters(
+                        (String) call.argument(SUBLANGID_PARAMETER));
+                result.success(null);
+                break;
+
+                case DISPOSE_METHOD:
                 player.dispose();
                 videoPlayers.remove(textureId);
                 result.success(null);

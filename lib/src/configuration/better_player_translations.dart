@@ -10,6 +10,7 @@ class BetterPlayerTranslations {
   final String overflowMenuPlaybackSpeed;
   final String overflowMenuSubtitles;
   final String overflowMenuQuality;
+  final String overflowMenuAudioTrack;
 
   BetterPlayerTranslations({
     this.languageCode = "en",
@@ -22,6 +23,7 @@ class BetterPlayerTranslations {
     this.overflowMenuPlaybackSpeed = "Playback speed",
     this.overflowMenuSubtitles = "Subtitles",
     this.overflowMenuQuality = "Quality",
+    this.overflowMenuAudioTrack="AudioTracks",
   });
 
   factory BetterPlayerTranslations.polish() => BetterPlayerTranslations(

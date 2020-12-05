@@ -81,12 +81,17 @@ class BetterPlayerController extends ChangeNotifier {
   List<BetterPlayerSubtitle> subtitlesLines = List();
 
   List<BetterPlayerHlsTrack> _betterPlayerTracks = List();
+  List<BetterPlayerAudioTrack> _betterPlayerAudioTracks = List();
 
   List<BetterPlayerHlsTrack> get betterPlayerTracks => _betterPlayerTracks;
+  List<BetterPlayerAudioTrack> get betterPlayerAudioTracks =>
+      _betterPlayerAudioTracks;
 
   BetterPlayerHlsTrack _betterPlayerTrack;
+  BetterPlayerAudioTrack _betterPlayerAudioTrack;
 
   BetterPlayerHlsTrack get betterPlayerTrack => _betterPlayerTrack;
+  BetterPlayerAudioTrack get betterPlayerAudioTrack => _betterPlayerAudioTrack;
 
   Timer _nextVideoTimer;
 
@@ -487,6 +492,26 @@ class BetterPlayerController extends ChangeNotifier {
     videoPlayerController.setTrackParameters(
         track.width, track.height, track.bitrate);
     _betterPlayerTrack = track;
+  }
+
+  void setAudioTrack(String audioTrack) {
+    _postEvent(BetterPlayerEvent(BetterPlayerEventType.CHANGED_AUDIO_TRACK));
+
+    ///Default element clicked:
+    if (audioTrack == null) {
+      return;
+    }
+    videoPlayerController.setAudioTrackParameters(audioTrack);
+  }
+
+  void setSubTrack(String subTrack) {
+    _postEvent(BetterPlayerEvent(BetterPlayerEventType.CHANGED_SUB_TRACK));
+
+    ///Default element clicked:
+    if (subTrack == null) {
+      return;
+    }
+    videoPlayerController.setSubTrackParameters(subTrack);
   }
 
   void onPlayerVisibilityChanged(double visibilityFraction) async {

@@ -112,6 +112,15 @@ abstract class VideoPlayerPlatform {
     throw UnimplementedError('setTrackParameters() has not been implemented.');
   }
 
+  Future<void> setAudioTrackParameters(int textureId, String audioLangId) {
+    throw UnimplementedError(
+        'setAudioTrackParameters() has not been implemented.');
+  }
+    Future<void> setSubTrackParameters(int textureId, String subLangId) {
+    throw UnimplementedError(
+        'setSubTrackParameters() has not been implemented.');
+  }
+
   /// Sets the video position to a [Duration] from the start.
   Future<void> seekTo(int textureId, Duration position) {
     throw UnimplementedError('seekTo() has not been implemented.');

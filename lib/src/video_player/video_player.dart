@@ -478,6 +478,13 @@ class VideoPlayerController extends ValueNotifier<VideoPlayerValue> {
         _textureId, width, height, bitrate);
   }
 
+  Future<void> setAudioTrackParameters(String audioLangId) async {
+    await _videoPlayerPlatform.setAudioTrackParameters(_textureId, audioLangId);
+  }
+   Future<void> setSubTrackParameters(String subLangId) async {
+    await _videoPlayerPlatform.setSubTrackParameters(_textureId, subLangId);
+  }
+
   /// The closed caption based on the current [position] in the video.
   ///
   /// If there are no closed captions at the current [position], this will
