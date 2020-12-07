@@ -236,6 +236,12 @@ class _BetterPlayerMaterialControlsState
               child: Padding(
                 padding: const EdgeInsets.only(right: 5),
                 child: TrackbarDpad(
+                  onFocus: () {
+                    setState(() {
+                      _startHideTimer();
+                      _hideStuff = false;
+                    });
+                  },
                   onTap: _showAudioDialog,
                   child: RaisedButton.icon(
                       disabledColor: Colors.transparent,
@@ -252,6 +258,12 @@ class _BetterPlayerMaterialControlsState
               child: Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: TrackbarDpad(
+                  onFocus: () {
+                    setState(() {
+                      _startHideTimer();
+                      _hideStuff = false;
+                    });
+                  },
                   onTap: _showSubtitleDialog,
                   child: RaisedButton.icon(
                       disabledColor: Colors.transparent,
@@ -427,18 +439,21 @@ class _BetterPlayerMaterialControlsState
     return Padding(
       padding: const EdgeInsets.only(right: 30),
       child: ButtonPlayDpad(
+        onFocus: () {
+          setState(() {
+            _startHideTimer();
+            _hideStuff = false;
+          });
+        },
         onTap: skipBack,
         child: Container(
           color: Colors.transparent,
           width: 120,
           height: 120,
-          child: IconButton(
-            icon: Icon(
-              Icons.replay_30_sharp,
-              size: 50,
-              color: _controlsConfiguration.iconsColor,
-            ),
-            onPressed: skipBack,
+          child: Icon(
+            Icons.replay_30_sharp,
+            size: 50,
+            color: _controlsConfiguration.iconsColor,
           ),
         ),
       ),
@@ -449,19 +464,21 @@ class _BetterPlayerMaterialControlsState
     return Padding(
       padding: const EdgeInsets.only(left: 30),
       child: ButtonPlayDpad(
+        onFocus: () {
+          setState(() {
+            _startHideTimer();
+            _hideStuff = false;
+          });
+        },
         onTap: skipForward,
         child: Container(
           color: Colors.transparent,
           width: 120,
           height: 120,
-          child: IconButton(
-            splashColor: Colors.white70,
-            icon: Icon(
-              Icons.forward_30_sharp,
-              size: 50,
-              color: _controlsConfiguration.iconsColor,
-            ),
-            onPressed: skipForward,
+          child: Icon(
+            Icons.forward_30_sharp,
+            size: 50,
+            color: _controlsConfiguration.iconsColor,
           ),
         ),
       ),
@@ -506,7 +523,28 @@ class _BetterPlayerMaterialControlsState
     bool isFinished = isVideoFinished(_latestValue);
 
     return ButtonPlayDpad(
-      onTap: _onPlayPause,
+      onFocus: () {
+        setState(() {
+          _startHideTimer();
+          _hideStuff = false;
+        });
+      },
+      onTap: () {
+        if (_latestValue != null && _latestValue.isPlaying) {
+          if (_displayTapped) {
+            setState(() {
+              _hideStuff = true;
+            });
+          } else
+            cancelAndRestartTimer();
+        } else {
+          _onPlayPause();
+
+          setState(() {
+            _hideStuff = true;
+          });
+        }
+      },
       child: Container(
         color: Colors.transparent,
         width: 120,
@@ -514,28 +552,10 @@ class _BetterPlayerMaterialControlsState
         // margin: const EdgeInsets.symmetric(horizontal: 4),
         // padding: const EdgeInsets.symmetric(horizontal: 12),
         child: isFinished
-            ? IconButton(
-                onPressed: () {
-                  if (_latestValue != null && _latestValue.isPlaying) {
-                    if (_displayTapped) {
-                      setState(() {
-                        _hideStuff = true;
-                      });
-                    } else
-                      cancelAndRestartTimer();
-                  } else {
-                    _onPlayPause();
-
-                    setState(() {
-                      _hideStuff = true;
-                    });
-                  }
-                },
-                icon: Icon(
-                  Icons.replay,
-                  size: 120,
-                  color: _controlsConfiguration.iconsColor,
-                ),
+            ? Icon(
+                Icons.replay,
+                size: 120,
+                color: _controlsConfiguration.iconsColor,
               )
             : Icon(
                 controller.value.isPlaying
@@ -676,9 +696,9 @@ class _BetterPlayerMaterialControlsState
             _startHideTimer();
           },
           colors: BetterPlayerProgressColors(
-              playedColor: Colors.red,
+              playedColor: Colors.redAccent[700],
               handleColor: _controlsConfiguration.progressBarHandleColor,
-              bufferedColor: Colors.grey,
+              bufferedColor: Colors.grey[600],
               backgroundColor:
                   _controlsConfiguration.progressBarBackgroundColor),
         ),
@@ -694,7 +714,7 @@ class _BetterPlayerMaterialControlsState
   Widget _buildLoadingWidget() {
     return CircularProgressIndicator(
       strokeWidth: 4,
-      valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+      valueColor: AlwaysStoppedAnimation<Color>(Colors.redAccent[700]),
     );
   }
   // Widget _buildTopBar() {

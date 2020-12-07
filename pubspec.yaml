@@ -21,6 +21,7 @@ dependencies:
   visibility_detector: ^0.1.5
   path_provider: ^1.6.24
   flutter_screen_scaler:
+  
 
 dev_dependencies:
   flutter_test:
