@@ -536,10 +536,11 @@ class _BetterPlayerMaterialControlsState
           isFinished = _latestValue.position >= _latestValue.duration;
         }
         if (_latestValue != null && _latestValue.isPlaying) {
-          if (_displayTapped) {
+          if (_displayTapped && _controller.value.isPlaying) {
             setState(() {
               _betterPlayerController.pause();
-              _hideStuff = true;
+              _hideStuff = false;
+              _hideTimer?.cancel();
             });
           } else
             cancelAndRestartTimer();
