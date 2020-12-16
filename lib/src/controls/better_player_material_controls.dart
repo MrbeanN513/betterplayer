@@ -530,17 +530,27 @@ class _BetterPlayerMaterialControlsState
         });
       },
       onTap: () {
+        bool isFinished = false;
+
+        if (_latestValue?.position != null && _latestValue?.duration != null) {
+          isFinished = _latestValue.position >= _latestValue.duration;
+        }
         if (_latestValue != null && _latestValue.isPlaying) {
           if (_displayTapped) {
             setState(() {
+              _betterPlayerController.pause();
               _hideStuff = true;
             });
           } else
             cancelAndRestartTimer();
         } else {
-          _onPlayPause();
+          if (isFinished) {
+            _betterPlayerController.seekTo(Duration(seconds: 0));
+          }
 
           setState(() {
+            _betterPlayerController.play();
+            _betterPlayerController.cancelNextVideoTimer();
             _hideStuff = true;
           });
         }
@@ -567,6 +577,33 @@ class _BetterPlayerMaterialControlsState
       ),
     );
   }
+
+  // void _onPlayPause() {
+  //   bool isFinished = false;
+
+  //   if (_latestValue?.position != null && _latestValue?.duration != null) {
+  //     isFinished = _latestValue.position >= _latestValue.duration;
+  //   }
+
+  //   setState(() {
+  //     if (_controller.value.isPlaying) {
+  //       _hideStuff = false;
+  //       _hideTimer?.cancel();
+  //       _betterPlayerController.pause();
+  //     } else {
+  //       cancelAndRestartTimer();
+
+  //       if (!_controller.value.initialized) {
+  //       } else {
+  //         if (isFinished) {
+  //           _betterPlayerController.seekTo(Duration(seconds: 0));
+  //         }
+  //         _betterPlayerController.play();
+  //         _betterPlayerController.cancelNextVideoTimer();
+  //       }
+  //     }
+  //   });
+  // }
 
   Widget _buildPosition() {
     final position = _latestValue != null && _latestValue.position != null
@@ -627,33 +664,6 @@ class _BetterPlayerMaterialControlsState
       });
       if (!_hideStuff) {
         cancelAndRestartTimer();
-      }
-    });
-  }
-
-  void _onPlayPause() {
-    bool isFinished = false;
-
-    if (_latestValue?.position != null && _latestValue?.duration != null) {
-      isFinished = _latestValue.position >= _latestValue.duration;
-    }
-
-    setState(() {
-      if (_controller.value.isPlaying) {
-        _hideStuff = false;
-        _hideTimer?.cancel();
-        _betterPlayerController.pause();
-      } else {
-        cancelAndRestartTimer();
-
-        if (!_controller.value.initialized) {
-        } else {
-          if (isFinished) {
-            _betterPlayerController.seekTo(Duration(seconds: 0));
-          }
-          _betterPlayerController.play();
-          _betterPlayerController.cancelNextVideoTimer();
-        }
       }
     });
   }
